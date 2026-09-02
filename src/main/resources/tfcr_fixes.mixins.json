@@ -1,0 +1,26 @@
+{
+  "required": false,
+  "package": "com.tfcr.tfcrfixes.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "mixins": [
+    "ClimateTempModifierSkipMixin",
+    "DeepSpacePositionTimescaleMixin",
+    "CreateObbManifoldNullGuardMixin",
+    "SableSeatPositionGuardMixin",
+    "VatRecipeOutputCopyMixin",
+    "TfcEnchantabilityMixin",
+    "EnchantingFuelSlotMixin",
+    "TfcBookshelfEnchantPowerMixin",
+    "DampingBearingOutputClampMixin"
+  ],
+  "client": [
+    "DynamicTextureNullGuardMixin",
+    "ClientModLoaderWarningFilterMixin",
+    "StarPlasmaThrottleMixin",
+    "ThirstTemperatureCacheMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -13,7 +13,8 @@
     "EnchantingFuelSlotMixin",
     "TfcBookshelfEnchantPowerMixin",
     "DampingBearingOutputClampMixin",
-    "CreateFluidPipeTempGuardMixin"
+    "CreateFluidPipeTempGuardMixin",
+    "InstantTemperatureMemoMixin"
   ],
   "client": [
     "DynamicTextureNullGuardMixin",

@@ -14,7 +14,8 @@
     "TfcBookshelfEnchantPowerMixin",
     "DampingBearingOutputClampMixin",
     "CreateFluidPipeTempGuardMixin",
-    "InstantTemperatureMemoMixin"
+    "InstantTemperatureMemoMixin",
+    "SableEntityQueryAabbGuardMixin"
   ],
   "client": [
     "DynamicTextureNullGuardMixin",

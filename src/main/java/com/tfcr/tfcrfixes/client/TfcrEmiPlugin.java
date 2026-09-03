@@ -71,7 +71,16 @@ public class TfcrEmiPlugin implements EmiPlugin {
                 return true;
             }
             IFood food = FoodCapability.get(itemStack);
-            return food != null && food.getCreationDate() >= 0;
+            if (food == null) {
+                return false;
+            }
+            long date = food.getCreationDate();
+            // Dated stacks (>= 0) rot over time in the index; stacks already
+            // sanitized to ROTTEN_FLAG (-4) are rotten forever. Both must go —
+            // the -2 never-decay variants added below are their replacements.
+            // -1 (transient, TFC recipe outputs) and -3 (visible never-decay)
+            // display as fresh and stay.
+            return date >= 0 || date == -4L;
         });
 
         // Add the never-decaying (-2) variant of every food item straight from the

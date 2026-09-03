@@ -13,14 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * overworld save.
  *
  * The texture is only consumed by the custom sky renderer (space visuals), so
- * regenerating it at most 10 times per second is visually indistinguishable.
- * This injector throttles the regeneration by wall clock: calls arriving within
- * 100 ms of the last accepted regeneration are skipped, leaving the previously
- * generated texture in place.
+ * regenerating it a handful of times per minute is visually indistinguishable.
+ *
+ * History: the throttle was 100 ms (10 regens/sec), but a single regeneration is
+ * so expensive (10k warped-noise evaluations + a GPU texture upload) that even
+ * throttled it still burned ~5.6% of the render thread (spark 4iT6ZRBUOT).
+ * Bumped to 5000 ms: the plasma animation steps very slightly slower, and the
+ * render-thread cost drops to a rounding error (~0.1%).
  */
 @Mixin(targets = "dev.devce.rocketnautics.client.SkyHandler", remap = false)
 public abstract class StarPlasmaThrottleMixin {
-    private static final long TFCR_FIXES$MIN_INTERVAL_MS = 100L;
+    private static final long TFCR_FIXES$MIN_INTERVAL_MS = 5000L;
     private static long tfcr_fixes$lastAcceptedRun = Long.MIN_VALUE / 2;
 
     @Inject(method = "ensureStarPlasmaTexture", at = @At("HEAD"), cancellable = true)

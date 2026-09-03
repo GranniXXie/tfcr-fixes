@@ -19,6 +19,7 @@
     "DynamicTextureNullGuardMixin",
     "ClientModLoaderWarningFilterMixin",
     "StarPlasmaThrottleMixin",
+    "SolarBridgeMemoMixin",
     "ThirstTemperatureCacheMixin"
   ],
   "injectors": {

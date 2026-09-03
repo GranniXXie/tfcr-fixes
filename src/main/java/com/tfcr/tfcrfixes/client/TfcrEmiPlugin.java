@@ -6,10 +6,10 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.stack.EmiStack;
 import net.dries007.tfc.common.component.food.FoodCapability;
 import net.dries007.tfc.common.component.food.IFood;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -56,7 +56,12 @@ public class TfcrEmiPlugin implements EmiPlugin {
 
     @Override
     public void register(EmiRegistry registry) {
-        List<EmiStack> fresh = new ArrayList<>();
+        // Remove junk stacks and every dated (decaying) food stack from the index.
+        // NOTE: removeEmiStacks() only stores the predicate — EMI defers evaluation
+        // to EmiStackList.bake(), which runs AFTER all plugins' register() calls.
+        // Collecting replacement stacks from inside the predicate therefore always
+        // yields an empty list at addEmiStack() time. That was the bug that left
+        // rotten food in the index with no fresh replacement.
         registry.removeEmiStacks(stack -> {
             ItemStack itemStack = stack.getItemStack();
             if (itemStack.isEmpty()) {
@@ -66,14 +71,24 @@ public class TfcrEmiPlugin implements EmiPlugin {
                 return true;
             }
             IFood food = FoodCapability.get(itemStack);
-            if (food == null || food.getCreationDate() < 0) {
-                return false;
-            }
-            fresh.add(EmiStack.of(FoodCapability.setCreationDate(itemStack.copy(), NON_DECAY_FLAG)));
-            return true;
+            return food != null && food.getCreationDate() >= 0;
         });
-        for (EmiStack stack : fresh) {
-            registry.addEmiStack(stack);
+
+        // Add the never-decaying (-2) variant of every food item straight from the
+        // item registry, independent of the deferred removal above. The -2 flag is
+        // TFC's "invisible never-decay" marker (no tooltip), the same one TFC uses
+        // for its own EMI recipe displays, so nutrition tooltips stay readable.
+        // Items whose default stack already carries a flag (< 0) are skipped.
+        for (Item item : BuiltInRegistries.ITEM) {
+            ItemStack def = item.getDefaultInstance();
+            if (def.isEmpty()) {
+                continue;
+            }
+            IFood food = FoodCapability.get(def);
+            if (food == null || food.getCreationDate() < 0) {
+                continue;
+            }
+            registry.addEmiStack(EmiStack.of(FoodCapability.setCreationDate(def.copy(), NON_DECAY_FLAG)));
         }
     }
 

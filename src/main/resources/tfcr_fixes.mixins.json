@@ -12,7 +12,8 @@
     "TfcEnchantabilityMixin",
     "EnchantingFuelSlotMixin",
     "TfcBookshelfEnchantPowerMixin",
-    "DampingBearingOutputClampMixin"
+    "DampingBearingOutputClampMixin",
+    "CreateFluidPipeTempGuardMixin"
   ],
   "client": [
     "DynamicTextureNullGuardMixin",

@@ -21,7 +21,8 @@
     "ClientModLoaderWarningFilterMixin",
     "StarPlasmaThrottleMixin",
     "SolarBridgeMemoMixin",
-    "ThirstTemperatureCacheMixin"
+    "ThirstTemperatureCacheMixin",
+    "PressParticleEmptyGuardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

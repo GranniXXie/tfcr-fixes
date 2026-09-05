@@ -19,7 +19,8 @@
     "KubeJSNetSendGuardMixin",
     "KubeJSReplayDatapackSyncMixin",
     "NetworkRegistryReplayGuardMixin",
-    "ArchitecturyReplaySendSkipMixin"
+    "ArchitecturyReplaySendSkipMixin",
+    "ReplayEntityDataMismatchGuardMixin"
   ],
   "client": [
     "DynamicTextureNullGuardMixin",

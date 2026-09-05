@@ -15,10 +15,13 @@
     "DampingBearingOutputClampMixin",
     "CreateFluidPipeTempGuardMixin",
     "InstantTemperatureMemoMixin",
-    "SableEntityQueryAabbGuardMixin"
+    "SableEntityQueryAabbGuardMixin",
+    "KubeJSNetSendGuardMixin",
+    "KubeJSReplayDatapackSyncMixin"
   ],
   "client": [
     "DynamicTextureNullGuardMixin",
+    "ScrapingBlockModelNullGuardMixin",
     "ClientModLoaderWarningFilterMixin",
     "StarPlasmaThrottleMixin",
     "SolarBridgeMemoMixin",

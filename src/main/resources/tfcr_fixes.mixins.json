@@ -18,7 +18,8 @@
     "SableEntityQueryAabbGuardMixin",
     "KubeJSNetSendGuardMixin",
     "KubeJSReplayDatapackSyncMixin",
-    "NetworkRegistryReplayGuardMixin"
+    "NetworkRegistryReplayGuardMixin",
+    "ArchitecturyReplaySendSkipMixin"
   ],
   "client": [
     "DynamicTextureNullGuardMixin",

@@ -22,6 +22,7 @@ dependencies {
     compileOnly files("libs/kubejs-neoforge-2101.7.2-build.368.jar")
     compileOnly files("libs/sable-neoforge-1.21.1-2.0.5.jar")
     compileOnly files("libs/sable-companion-common-1.21.1-1.6.0.jar")
+    compileOnly files("libs/architectury-13.0.11-neoforge.jar")
     // NOTE: TFC / cosmonautics are targeted by string-based @Mixin(targets=...) only.
     // Their jars must NOT be put on the compile classpath: cosmonautics' shaded orekit
     // registers a javac plugin (META-INF/services) whose class is not present, which
